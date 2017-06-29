@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.thinking.mapper.DepartmentsMapper" >
+  <resultMap id="BaseResultMap" type="com.thinking.bean.Departments" >
+    <id column="DepartID" property="departid" jdbcType="INTEGER" />
+    <result column="DepartName" property="departname" jdbcType="VARCHAR" />
+    <result column="ChildCount" property="childcount" jdbcType="INTEGER" />
+    <result column="CreateTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="IsDeleted" property="isdeleted" jdbcType="BIT" />
+    <result column="CompanyName" property="companyname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    DepartID, DepartName, ChildCount, CreateTime, IsDeleted, CompanyName
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from departments
+    where DepartID = #{departid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from departments
+    where DepartID = #{departid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.thinking.bean.Departments" >
+    insert into departments (DepartID, DepartName, ChildCount, 
+      CreateTime, IsDeleted, CompanyName
+      )
+    values (#{departid,jdbcType=INTEGER}, #{departname,jdbcType=VARCHAR}, #{childcount,jdbcType=INTEGER}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{isdeleted,jdbcType=BIT}, #{companyname,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.thinking.bean.Departments" >
+    insert into departments
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="departid != null" >
+        DepartID,
+      </if>
+      <if test="departname != null" >
+        DepartName,
+      </if>
+      <if test="childcount != null" >
+        ChildCount,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+      <if test="isdeleted != null" >
+        IsDeleted,
+      </if>
+      <if test="companyname != null" >
+        CompanyName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="departid != null" >
+        #{departid,jdbcType=INTEGER},
+      </if>
+      <if test="departname != null" >
+        #{departname,jdbcType=VARCHAR},
+      </if>
+      <if test="childcount != null" >
+        #{childcount,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isdeleted != null" >
+        #{isdeleted,jdbcType=BIT},
+      </if>
+      <if test="companyname != null" >
+        #{companyname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.thinking.bean.Departments" >
+    update departments
+    <set >
+      <if test="departname != null" >
+        DepartName = #{departname,jdbcType=VARCHAR},
+      </if>
+      <if test="childcount != null" >
+        ChildCount = #{childcount,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isdeleted != null" >
+        IsDeleted = #{isdeleted,jdbcType=BIT},
+      </if>
+      <if test="companyname != null" >
+        CompanyName = #{companyname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where DepartID = #{departid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.thinking.bean.Departments" >
+    update departments
+    set DepartName = #{departname,jdbcType=VARCHAR},
+      ChildCount = #{childcount,jdbcType=INTEGER},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      IsDeleted = #{isdeleted,jdbcType=BIT},
+      CompanyName = #{companyname,jdbcType=VARCHAR}
+    where DepartID = #{departid,jdbcType=INTEGER}
+  </update>
+</mapper>

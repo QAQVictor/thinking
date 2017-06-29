@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.thinking.mapper.CharactersMapper" >
+  <resultMap id="BaseResultMap" type="com.thinking.bean.Characters" >
+    <id column="CharacterType" property="charactertype" jdbcType="INTEGER" />
+    <result column="CharacterName" property="charactername" jdbcType="VARCHAR" />
+    <result column="Depart" property="depart" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="IsDeleted" property="isdeleted" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CharacterType, CharacterName, Depart, CreateTime, IsDeleted
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from characters
+    where CharacterType = #{charactertype,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from characters
+    where CharacterType = #{charactertype,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.thinking.bean.Characters" >
+    insert into characters (CharacterType, CharacterName, Depart, 
+      CreateTime, IsDeleted)
+    values (#{charactertype,jdbcType=INTEGER}, #{charactername,jdbcType=VARCHAR}, #{depart,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{isdeleted,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.thinking.bean.Characters" >
+    insert into characters
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="charactertype != null" >
+        CharacterType,
+      </if>
+      <if test="charactername != null" >
+        CharacterName,
+      </if>
+      <if test="depart != null" >
+        Depart,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+      <if test="isdeleted != null" >
+        IsDeleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="charactertype != null" >
+        #{charactertype,jdbcType=INTEGER},
+      </if>
+      <if test="charactername != null" >
+        #{charactername,jdbcType=VARCHAR},
+      </if>
+      <if test="depart != null" >
+        #{depart,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isdeleted != null" >
+        #{isdeleted,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.thinking.bean.Characters" >
+    update characters
+    <set >
+      <if test="charactername != null" >
+        CharacterName = #{charactername,jdbcType=VARCHAR},
+      </if>
+      <if test="depart != null" >
+        Depart = #{depart,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isdeleted != null" >
+        IsDeleted = #{isdeleted,jdbcType=BIT},
+      </if>
+    </set>
+    where CharacterType = #{charactertype,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.thinking.bean.Characters" >
+    update characters
+    set CharacterName = #{charactername,jdbcType=VARCHAR},
+      Depart = #{depart,jdbcType=VARCHAR},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      IsDeleted = #{isdeleted,jdbcType=BIT}
+    where CharacterType = #{charactertype,jdbcType=INTEGER}
+  </update>
+</mapper>

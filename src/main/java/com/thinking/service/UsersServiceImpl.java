@@ -18,7 +18,7 @@ public class UsersServiceImpl implements UsersServiceI {
 
 	public boolean login(Users user) {
 		// 用户登录
-		if (um.selectByUserName(user) > 0) {
+		if (um.selectByUserName(user) != null) {
 			return true;
 		} else {
 			return false;
@@ -39,7 +39,7 @@ public class UsersServiceImpl implements UsersServiceI {
 		List<Users> usersList = um.selectAll();
 		if (usersList != null) {
 			for (Users user : usersList) {
-				System.out.println(user.getUsername());
+				System.out.println(user.getUserName());
 			}
 			return usersList;
 		} else {
@@ -49,7 +49,7 @@ public class UsersServiceImpl implements UsersServiceI {
 
 	public Users findById(int id) {
 		// 根据用户id查找
-		System.out.println(um.selectByPrimaryKey(id).getUsername());
+		System.out.println(um.selectByPrimaryKey(id).getUserName());
 		return um.selectByPrimaryKey(id);
 
 	}
@@ -57,7 +57,7 @@ public class UsersServiceImpl implements UsersServiceI {
 	public boolean update(Users user) {
 		// 更新用户数据
 		if (um.updateByPrimaryKey(user) > 0) {
-			System.out.println(um.selectByPrimaryKey(user.getUserid()));
+			System.out.println(um.selectByPrimaryKey(user.getUserId()));
 			return true;
 		}
 		return false;

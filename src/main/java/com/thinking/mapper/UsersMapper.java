@@ -19,12 +19,13 @@ public interface UsersMapper {
     int insertSelective(Users record);
     //根据id查找用户
     Users selectByPrimaryKey(Integer userid);
+    //根据用户名查找用户
+    Users selectByUserName(Users user);
     
     int updateByPrimaryKeySelective(Users record);
     //更新用户信息
     int updateByPrimaryKey(Users record);
-    //根据用户名查找用户
-    int selectByUserName(Users user);
+    
     //查找所有用户
     List<Users> selectAll();
     
